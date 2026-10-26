@@ -28,4 +28,11 @@ Each numbered group lands as its own commit (Conventional Commits, body says why
 ## 4. Verification
 
 - [x] 4.1 Run Stryker (`cd backend/tests/InvoiceApp.Tests && dotnet stryker`) on the baseline before group 1 and after group 3; record both mutation scores and add tests for any surviving mutants in the policy or service
-- [ ] 4.2 Run a PR review of the full diff using the `pr-review` format; answer every finding in the PR description with exactly one verdict (fixed / dismissed / deferred) and include the Stryker before/after scores
+- [x] 4.2 Run a PR review of the full diff using the `pr-review` format; answer every finding in the PR description with exactly one verdict (fixed / dismissed / deferred) and include the Stryker before/after scores
+
+## 5. Follow-ups deferred from the PR #1 review (not part of this change)
+
+- [ ] 5.1 (F1c) Repository returns copies instead of live objects so a GET can never serialise a list mid-update; pairs with moving to a real store with optimistic concurrency
+- [ ] 5.2 (F3a) Playwright: two-step approval of a 750,000 invoice (manager first, director2 second), "1 of 2 approvals" shown then gone
+- [ ] 5.3 (F3b) Playwright: Admin sees Reject but not Approve
+- [ ] 5.4 (F6) Move the "amount must be greater than zero" rule from InvoicesController into the domain
