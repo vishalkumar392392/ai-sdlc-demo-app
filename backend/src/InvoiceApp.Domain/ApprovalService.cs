@@ -7,6 +7,13 @@ namespace InvoiceApp.Domain;
 /// </summary>
 public class ApprovalService
 {
+    /// <summary>
+    /// Serialises every decision: find, check and write must be one step, or two requests can both
+    /// pass the checks (two "first" approvals, or an approve racing a decline). Static because the
+    /// service is created per request. A database-backed repository would use optimistic concurrency instead.
+    /// </summary>
+    private static readonly object DecisionLock = new();
+
     private readonly IInvoiceRepository _repository;
     private readonly ApprovalPolicy _policy;
 
@@ -17,6 +24,11 @@ public class ApprovalService
     }
 
     public Invoice Submit(string invoiceId)
+    {
+        lock (DecisionLock) return SubmitLocked(invoiceId);
+    }
+
+    private Invoice SubmitLocked(string invoiceId)
     {
         var invoice = Find(invoiceId);
 
@@ -32,6 +44,11 @@ public class ApprovalService
     }
 
     public Invoice Approve(string invoiceId, string approver, string role)
+    {
+        lock (DecisionLock) return ApproveLocked(invoiceId, approver, role);
+    }
+
+    private Invoice ApproveLocked(string invoiceId, string approver, string role)
     {
         var invoice = Find(invoiceId);
         EnsurePending(invoice);
@@ -60,6 +77,11 @@ public class ApprovalService
             throw new ArgumentException("A reason is required to reject an invoice.", nameof(reason));
         }
 
+        lock (DecisionLock) return RejectLocked(invoiceId, approver, reason);
+    }
+
+    private Invoice RejectLocked(string invoiceId, string approver, string reason)
+    {
         var invoice = Find(invoiceId);
         EnsurePending(invoice);
 
