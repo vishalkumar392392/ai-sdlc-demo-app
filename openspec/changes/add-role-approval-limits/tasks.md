@@ -14,11 +14,11 @@ Each numbered group lands as its own commit (Conventional Commits, body says why
 
 ## 2. Two-approver rule (commit: `feat(approval): require two distinct approvers above 500,000`)
 
-- [ ] 2.1 Add `ApprovalRecord(string Approver, string Role, DateTime ApprovedAt)` and `Invoice.Approvals` list (initialised empty, serialised in API responses); verify via a unit test and the invoices API JSON
-- [ ] 2.2 Extend `ApprovalPolicy` for amounts over 500,000.00: first approval (Manager or Director) returns "record first approval"; second requires a Director whose trimmed, case-insensitive username differs from every recorded approver; verify with `ApprovalPolicyTests` for Manager-first allowed, Manager-second refused, same Director refused, `" Demo.Director "` vs `demo.director` refused
-- [ ] 2.3 Update `ApprovalService.Approve` so a first approval appends a record and leaves `PendingApproval` with `DecidedBy`/`DecidedAt` null, and a valid second approval appends a record and sets `Approved`, `DecidedBy` = second approver, `DecidedAt`; verify with `ApprovalServiceTests` at 500,000.01 and 750,000.00
-- [ ] 2.4 Add negative tests in `ApprovalServiceTests` for the same user twice (including different casing) and a Manager as second approver, asserting the whole invoice state (Status, DecidedBy, DecidedAt, DecisionNote, Approvals count and contents) is unchanged and no `Update` was recorded; verify each test fails if its rule is removed
-- [ ] 2.5 Show "1 of 2 approvals" in the pending list in `wwwroot/app.js` when a pending invoice has exactly one recorded approval; verify manually after a first approval of a 750,000.00 invoice
+- [x] 2.1 Add `ApprovalRecord(string Approver, string Role, DateTime ApprovedAt)` and `Invoice.Approvals` list (initialised empty, serialised in API responses); verify via a unit test and the invoices API JSON
+- [x] 2.2 Extend `ApprovalPolicy` for amounts over 500,000.00: first approval (Manager or Director) returns "record first approval"; second requires a Director whose trimmed, case-insensitive username differs from every recorded approver; verify with `ApprovalPolicyTests` for Manager-first allowed, Manager-second refused, same Director refused, `" Demo.Director "` vs `demo.director` refused
+- [x] 2.3 Update `ApprovalService.Approve` so a first approval appends a record and leaves `PendingApproval` with `DecidedBy`/`DecidedAt` null, and a valid second approval appends a record and sets `Approved`, `DecidedBy` = second approver, `DecidedAt`; verify with `ApprovalServiceTests` at 500,000.01 and 750,000.00
+- [x] 2.4 Add negative tests in `ApprovalServiceTests` for the same user twice (including different casing) and a Manager as second approver, asserting the whole invoice state (Status, DecidedBy, DecidedAt, DecisionNote, Approvals count and contents) is unchanged and no `Update` was recorded; verify each test fails if its rule is removed
+- [x] 2.5 Show "1 of 2 approvals" in the pending list in `wwwroot/app.js` when a pending invoice has exactly one recorded approval; verify manually after a first approval of a 750,000.00 invoice
 
 ## 3. End-to-end test (commit: `test(e2e): cover a refused over-limit approval in the UI`)
 

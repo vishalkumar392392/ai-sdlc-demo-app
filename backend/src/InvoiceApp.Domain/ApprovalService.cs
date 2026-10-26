@@ -2,7 +2,8 @@ namespace InvoiceApp.Domain;
 
 /// <summary>
 /// Moves an invoice through its lifecycle: Draft -> PendingApproval -> Approved or Rejected.
-/// Approvals are limited by the approver's role (see <see cref="ApprovalPolicy"/>).
+/// Approvals are limited by the approver's role (see <see cref="ApprovalPolicy"/>); invoices over
+/// 500,000 stay pending after the first of two approvals.
 /// </summary>
 public class ApprovalService
 {
@@ -36,11 +37,18 @@ public class ApprovalService
         EnsurePending(invoice);
 
         // Every check runs before the invoice is touched: a refused attempt must change nothing.
-        _policy.EnsureCanApprove(invoice, approver, role);
+        var outcome = _policy.EnsureCanApprove(invoice, approver, role);
 
-        invoice.Status = InvoiceStatus.Approved;
-        invoice.DecidedBy = approver;
-        invoice.DecidedAt = DateTime.UtcNow;
+        var now = DateTime.UtcNow;
+        invoice.Approvals.Add(new ApprovalRecord(approver, role, now));
+
+        if (outcome == ApprovalOutcome.ApproveFinal)
+        {
+            invoice.Status = InvoiceStatus.Approved;
+            invoice.DecidedBy = approver;
+            invoice.DecidedAt = now;
+        }
+
         _repository.Update(invoice);
         return invoice;
     }

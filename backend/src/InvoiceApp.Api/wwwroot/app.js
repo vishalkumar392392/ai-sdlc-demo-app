@@ -72,8 +72,13 @@
       approve.addEventListener('click', () => decide(`/approvals/${invoice.id}/approve`, {}));
       reject.addEventListener('click', () => decide(`/approvals/${invoice.id}/reject`, { reason: reason.value }));
 
+      // Only invoices that need two approvals can be pending with one recorded; the server owns that rule.
+      const progress = (invoice.approvals || []).length === 1
+        ? [' · ', el('span', { class: 'approval-progress' }, '1 of 2 approvals')]
+        : [];
+
       return el('li', {},
-        el('span', {}, `${invoice.id} · ${invoice.customerName} · ${money.format(invoice.amount)}`),
+        el('span', {}, `${invoice.id} · ${invoice.customerName} · ${money.format(invoice.amount)}`, ...progress),
         el('span', {}, ...(canApprove() ? [approve] : [])),
         el('div', { class: 'reject-row' }, reason, reject));
     }));
