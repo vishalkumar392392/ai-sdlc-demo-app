@@ -14,7 +14,9 @@ test('a Manager approving an invoice over 50,000 is refused with a reason and th
   await approvals.open();
   await expect(approvals.pendingEntry(invoiceId)).toBeVisible();
 
-  await approvals.approve(invoiceId);
+  const status = await approvals.approve(invoiceId);
+
+  expect(status).toBe(403);
 
   await expect(approvals.decisionError).toBeVisible();
   await expect(approvals.decisionError).toContainText('Manager approval limit is 50,000.00');

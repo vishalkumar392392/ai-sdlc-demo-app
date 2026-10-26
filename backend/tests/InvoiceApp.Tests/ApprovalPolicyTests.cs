@@ -57,12 +57,23 @@ public class ApprovalPolicyTests
     [InlineData("Admin")]
     [InlineData("Approver")]
     [InlineData("manager")]
-    [InlineData("")]
     public void RoleWithoutALimit_IsRefusedWithAReasonNamingTheRole(string role)
     {
         var error = Refusal(100m, "someone", role);
 
         Assert.Contains($"The {role} role cannot approve", error.Message);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void MissingRole_IsRefusedWithAReadableReason(string? role)
+    {
+        var error = Assert.Throws<ApprovalNotAllowedException>(
+            () => _policy.EnsureCanApprove(PendingInvoice(100m), "someone", role));
+
+        Assert.StartsWith("Your account has no role that can approve invoices.", error.Message);
     }
 
     [Theory]
@@ -144,7 +155,7 @@ public class ApprovalPolicyTests
         var error = Refusal(invoice, " Demo.Manager ", ApprovalRoles.Manager);
 
         Assert.Contains("already approved", error.Message);
-        Assert.Contains("must come from a different approver", error.Message);
+        Assert.Contains("another approver must approve it", error.Message);
     }
 
     [Fact]

@@ -23,8 +23,14 @@ public class ApprovalPolicy
     /// Returns what the approval does, or throws <see cref="ApprovalNotAllowedException"/> with the reason
     /// when the approval is not allowed.
     /// </summary>
-    public ApprovalOutcome EnsureCanApprove(Invoice invoice, string approver, string role)
+    public ApprovalOutcome EnsureCanApprove(Invoice invoice, string approver, string? role)
     {
+        if (string.IsNullOrWhiteSpace(role))
+        {
+            throw new ApprovalNotAllowedException(
+                $"Your account has no role that can approve invoices. Approvals need a Manager (up to {Money(ManagerLimit)}) or a Director (up to {Money(DirectorLimit)}).");
+        }
+
         if (!LimitsByRole.TryGetValue(role, out var limit))
         {
             throw new ApprovalNotAllowedException(
@@ -43,7 +49,7 @@ public class ApprovalPolicy
         }
 
         // A single approval is enough here; still, nobody approves the same invoice twice.
-        EnsureNotAlreadyApprovedBy(invoice, approver, "a different approver");
+        EnsureNotAlreadyApprovedBy(invoice, approver, "another approver must approve it");
         return ApprovalOutcome.ApproveFinal;
     }
 
@@ -60,16 +66,16 @@ public class ApprovalPolicy
                 $"{role} cannot give the second approval: invoice {invoice.Id} is {Money(invoice.Amount)}, over {Money(DirectorLimit)}, and its second approval must come from a Director.");
         }
 
-        EnsureNotAlreadyApprovedBy(invoice, approver, "a different Director");
+        EnsureNotAlreadyApprovedBy(invoice, approver, "the second approval must come from a different Director");
         return ApprovalOutcome.ApproveFinal;
     }
 
-    private static void EnsureNotAlreadyApprovedBy(Invoice invoice, string approver, string needed)
+    private static void EnsureNotAlreadyApprovedBy(Invoice invoice, string approver, string whatIsNeeded)
     {
         if (invoice.Approvals.Any(record => IsSameUser(record.Approver, approver)))
         {
             throw new ApprovalNotAllowedException(
-                $"{approver.Trim()} has already approved invoice {invoice.Id}; the second approval must come from {needed}.");
+                $"{approver.Trim()} has already approved invoice {invoice.Id}; {whatIsNeeded}.");
         }
     }
 

@@ -99,7 +99,7 @@ public class ApprovalServiceTests
     {
         var service = ServiceFor(InvoiceWith("INV-1", InvoiceStatus.PendingApproval));
 
-        var result = service.Reject("INV-1", "demo.approver", "Duplicate invoice");
+        var result = service.Reject("INV-1", "demo.admin", "Duplicate invoice");
 
         Assert.Equal(InvoiceStatus.Rejected, result.Status);
         Assert.Equal("Duplicate invoice", result.DecisionNote);
@@ -110,7 +110,7 @@ public class ApprovalServiceTests
     {
         var service = ServiceFor(InvoiceWith("INV-1", InvoiceStatus.PendingApproval));
 
-        Assert.Throws<ArgumentException>(() => service.Reject("INV-1", "demo.approver", "  "));
+        Assert.Throws<ArgumentException>(() => service.Reject("INV-1", "demo.admin", "  "));
     }
 
     [Fact]
