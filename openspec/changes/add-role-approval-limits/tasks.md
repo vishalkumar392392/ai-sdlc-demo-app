@@ -22,8 +22,8 @@ Each numbered group lands as its own commit (Conventional Commits, body says why
 
 ## 3. End-to-end test (commit: `test(e2e): cover a refused over-limit approval in the UI`)
 
-- [ ] 3.1 Add page objects under `e2e/pages/` (sign-in page and approvals page) using only role-based locators (`getByRole`, `getByLabel`); verify no CSS or XPath selectors are used
-- [ ] 3.2 Add a Playwright test under `e2e/tests/` that signs in as `demo.manager`, creates and submits an invoice over 50,000.00, clicks Approve, and asserts the alert shows a reason containing "Manager" and "50,000" and the invoice is still pending; verify with `cd e2e && npm test`
+- [x] 3.1 Add page objects under `e2e/pages/` (sign-in page and approvals page) using only role-based locators (`getByRole`, `getByLabel`); verify no CSS or XPath selectors are used
+- [x] 3.2 Add a Playwright test under `e2e/tests/` that signs in as `demo.manager`, creates and submits an invoice over 50,000.00, clicks Approve, and asserts the alert shows a reason containing "Manager" and "50,000" and the invoice is still pending; verify with `cd e2e && npm test`
 
 ## 4. Verification
 
