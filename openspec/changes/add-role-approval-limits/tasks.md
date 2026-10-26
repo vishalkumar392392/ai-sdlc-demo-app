@@ -4,13 +4,13 @@ Each numbered group lands as its own commit (Conventional Commits, body says why
 
 ## 1. Single-approver limits (commit: `feat(approval): enforce Manager and Director approval limits`)
 
-- [ ] 1.1 Add `ApprovalNotAllowedException(string reason)` in `InvoiceApp.Domain`; verify it builds and carries the message
-- [ ] 1.2 Add pure `ApprovalPolicy` in `InvoiceApp.Domain` with inclusive `decimal` limits (Manager 50,000.00, Director 500,000.00) that refuses roles without a limit (Admin, unknown) and invoices over 500,000.00 for now, with reasons naming role, limit and what is needed; verify with `ApprovalPolicyTests` covering 50,000.00 / 50,000.01 / 500,000.00 / 500,000.01, Admin and an unknown role, asserting reason text contains the role and the limit
-- [ ] 1.3 Change `ApprovalService.Approve(invoiceId, approver, role)` to run find -> ensure pending -> `ApprovalPolicy` -> mutate -> `Update`; verify with `ApprovalServiceTests` that a Manager approves 50,000.00 and a Director approves 500,000.00
-- [ ] 1.4 Add "nothing changes" tests in `ApprovalServiceTests`: after a refused Manager approval of 50,000.01 assert the whole invoice state (Status, DecidedBy, DecidedAt, DecisionNote) equals its prior values and `FakeInvoiceRepository` recorded no `Update` (add an update counter to the fake if missing); verify the test fails if mutation is moved before the policy check
-- [ ] 1.5 Map `ApprovalNotAllowedException` to `403 { error }` in `ApiControllerBase.Handle`; verify by calling the approve endpoint as `demo.manager` on a 60,000.00 invoice and getting 403 with the reason
-- [ ] 1.6 Update roles: `ApprovalsController` approve requires `Manager`/`Director`, reject keeps `Manager`/`Director`/`Admin`, pass `session.Role` to the service; replace `demo.approver` in `appsettings.json` with `demo.manager`, `demo.director`, `demo.director2` (keep `demo.admin`); verify each demo user signs in and Admin gets 403 on approve
-- [ ] 1.7 Confirm the web UI shows the refusal reason in `#decision-error` (existing `decide()` error path); verify manually by approving a 60,000.00 invoice as `demo.manager`
+- [x] 1.1 Add `ApprovalNotAllowedException(string reason)` in `InvoiceApp.Domain`; verify it builds and carries the message
+- [x] 1.2 Add pure `ApprovalPolicy` in `InvoiceApp.Domain` with inclusive `decimal` limits (Manager 50,000.00, Director 500,000.00) that refuses roles without a limit (Admin, unknown) and invoices over 500,000.00 for now, with reasons naming role, limit and what is needed; verify with `ApprovalPolicyTests` covering 50,000.00 / 50,000.01 / 500,000.00 / 500,000.01, Admin and an unknown role, asserting reason text contains the role and the limit
+- [x] 1.3 Change `ApprovalService.Approve(invoiceId, approver, role)` to run find -> ensure pending -> `ApprovalPolicy` -> mutate -> `Update`; verify with `ApprovalServiceTests` that a Manager approves 50,000.00 and a Director approves 500,000.00
+- [x] 1.4 Add "nothing changes" tests in `ApprovalServiceTests`: after a refused Manager approval of 50,000.01 assert the whole invoice state (Status, DecidedBy, DecidedAt, DecisionNote) equals its prior values and `FakeInvoiceRepository` recorded no `Update` (add an update counter to the fake if missing); verify the test fails if mutation is moved before the policy check
+- [x] 1.5 Map `ApprovalNotAllowedException` to `403 { error }` in `ApiControllerBase.Handle`; verify by calling the approve endpoint as `demo.manager` on a 60,000.00 invoice and getting 403 with the reason
+- [x] 1.6 Update roles: `ApprovalsController` approve requires `Manager`/`Director`, reject keeps `Manager`/`Director`/`Admin`, pass `session.Role` to the service; replace `demo.approver` in `appsettings.json` with `demo.manager`, `demo.director`, `demo.director2` (keep `demo.admin`); verify each demo user signs in and Admin gets 403 on approve
+- [x] 1.7 Confirm the web UI shows the refusal reason in `#decision-error` (existing `decide()` error path); verify manually by approving a 60,000.00 invoice as `demo.manager`
 
 ## 2. Two-approver rule (commit: `feat(approval): require two distinct approvers above 500,000`)
 

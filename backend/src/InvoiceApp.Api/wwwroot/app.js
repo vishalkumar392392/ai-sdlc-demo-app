@@ -74,10 +74,13 @@
 
       return el('li', {},
         el('span', {}, `${invoice.id} · ${invoice.customerName} · ${money.format(invoice.amount)}`),
-        el('span', {}, approve),
+        el('span', {}, ...(canApprove() ? [approve] : [])),
         el('div', { class: 'reject-row' }, reason, reject));
     }));
   }
+
+  // Only hides the button; the server enforces who may approve and how much.
+  function canApprove() { return ['Manager', 'Director'].includes(session.role); }
 
   async function decide(path, payload) {
     showError('decision-error', '');

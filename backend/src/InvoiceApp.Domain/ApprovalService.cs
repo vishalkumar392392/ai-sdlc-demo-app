@@ -2,15 +2,17 @@ namespace InvoiceApp.Domain;
 
 /// <summary>
 /// Moves an invoice through its lifecycle: Draft -> PendingApproval -> Approved or Rejected.
-/// One invoice at a time, decided as a whole by a single approver.
+/// Approvals are limited by the approver's role (see <see cref="ApprovalPolicy"/>).
 /// </summary>
 public class ApprovalService
 {
     private readonly IInvoiceRepository _repository;
+    private readonly ApprovalPolicy _policy;
 
-    public ApprovalService(IInvoiceRepository repository)
+    public ApprovalService(IInvoiceRepository repository, ApprovalPolicy policy)
     {
         _repository = repository;
+        _policy = policy;
     }
 
     public Invoice Submit(string invoiceId)
@@ -28,10 +30,13 @@ public class ApprovalService
         return invoice;
     }
 
-    public Invoice Approve(string invoiceId, string approver)
+    public Invoice Approve(string invoiceId, string approver, string role)
     {
         var invoice = Find(invoiceId);
         EnsurePending(invoice);
+
+        // Every check runs before the invoice is touched: a refused attempt must change nothing.
+        _policy.EnsureCanApprove(invoice, approver, role);
 
         invoice.Status = InvoiceStatus.Approved;
         invoice.DecidedBy = approver;
