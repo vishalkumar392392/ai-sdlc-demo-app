@@ -144,6 +144,7 @@ public class ApprovalPolicyTests
         var error = Refusal(invoice, " Demo.Manager ", ApprovalRoles.Manager);
 
         Assert.Contains("already approved", error.Message);
+        Assert.Contains("must come from a different approver", error.Message);
     }
 
     [Fact]

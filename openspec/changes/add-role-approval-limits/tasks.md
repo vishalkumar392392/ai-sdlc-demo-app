@@ -27,5 +27,5 @@ Each numbered group lands as its own commit (Conventional Commits, body says why
 
 ## 4. Verification
 
-- [ ] 4.1 Run Stryker (`cd backend/tests/InvoiceApp.Tests && dotnet stryker`) on the baseline before group 1 and after group 3; record both mutation scores and add tests for any surviving mutants in the policy or service
+- [x] 4.1 Run Stryker (`cd backend/tests/InvoiceApp.Tests && dotnet stryker`) on the baseline before group 1 and after group 3; record both mutation scores and add tests for any surviving mutants in the policy or service
 - [ ] 4.2 Run a PR review of the full diff using the `pr-review` format; answer every finding in the PR description with exactly one verdict (fixed / dismissed / deferred) and include the Stryker before/after scores

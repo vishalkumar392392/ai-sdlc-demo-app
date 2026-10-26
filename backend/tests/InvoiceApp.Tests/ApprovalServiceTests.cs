@@ -308,4 +308,39 @@ public class ApprovalServiceTests
         Assert.Empty(invoice.Approvals);
         Assert.Equal(0, repository.UpdateCount);
     }
+
+    [Fact]
+    public void Submit_IsSaved()
+    {
+        var repository = new FakeInvoiceRepository(InvoiceWith("INV-1", InvoiceStatus.Draft));
+
+        ServiceFor(repository).Submit("INV-1");
+
+        Assert.Equal(1, repository.UpdateCount);
+    }
+
+    [Fact]
+    public void Reject_IsSaved()
+    {
+        var repository = new FakeInvoiceRepository(InvoiceWith("INV-1", InvoiceStatus.PendingApproval));
+
+        ServiceFor(repository).Reject("INV-1", "demo.manager", "Duplicate invoice");
+
+        Assert.Equal(1, repository.UpdateCount);
+    }
+
+    [Fact]
+    public void Reject_RefusesInvoiceThatIsNotPendingAndChangesNothing()
+    {
+        var invoice = InvoiceWith("INV-1", InvoiceStatus.Approved);
+        var repository = new FakeInvoiceRepository(invoice);
+        var before = Snapshot(invoice);
+
+        var error = Assert.Throws<InvalidOperationException>(
+            () => ServiceFor(repository).Reject("INV-1", "demo.manager", "Too late"));
+
+        Assert.Contains("only pending invoices can be decided", error.Message);
+        Assert.Equal(before, Snapshot(invoice));
+        Assert.Equal(0, repository.UpdateCount);
+    }
 }
