@@ -31,7 +31,7 @@ The brief suggests GitHub Copilot's free tier and allows alternatives. I used **
 | | `.claude/agents/implementer.md` | Implemented task group 2 (two-approver rule) with tests |
 | | `.claude/agents/code-reviewer.md` | Reviewed the PR diff with the `pr-review` skill (fresh context, read-only) |
 | | `.claude/agents/test-reviewer.md`, `e2e-tester.md` | Defined for the test-review and e2e roles. Those roles were done by the orchestrator in this run (see below) |
-| Hooks | `.claude/settings.json` → `.claude/hooks/log_interaction.py` | `UserPromptSubmit`, `PreToolUse`, `PostToolUse`, `SubagentStop`, `Stop`: every interaction is appended to `ai-logs/ai-interactions.jsonl` in **one fixed schema** (`ts, session, event, actor, tool, summary`), with secrets and emails redacted. On Stop, it re-renders `ai-logs/AI_INTERACTIONS.md` |
+| Hooks | `.claude/settings.json` → `.claude/hooks/log_interaction.py` | `UserPromptSubmit`, `PreToolUse`, `PostToolUse`, `SubagentStop`, `Stop`: every interaction is appended to `ai-logs/ai-interactions.jsonl` in **one fixed schema** (`ts, session, event, ai_tool{name,version,model}, agent{name,type,mode}, permission_mode, tool, skill, mcp_server, files, summary, outcome`), with secrets and emails redacted. On Stop it re-renders `AI_INTERACTIONS.md` and regenerates the phase-level `ai-log.jsonl` / `AI_LOG.md` via `tools/build_ai_log.py` |
 | | `.claude/hooks/validate_commit.py` (`PreToolUse` on Bash) | Blocks `git commit` unless the message is `<type>(<scope>): <summary>` with a `Why:` line, so every commit has the same format |
 | Spec tool | OpenSpec 1.15.0 → `openspec/changes/add-role-approval-limits/` | `proposal.md`, `specs/invoice-approval/spec.md` (8 SHALL requirements, 21 scenarios), `design.md` (decisions + open questions), `tasks.md`. `openspec validate --strict` passes |
 
@@ -141,10 +141,37 @@ The `code-reviewer` sub-agent ran the `pr-review` prompt against `git diff main.
 | F9 | nit | Unscoped `getByRole('alert')` locator | **Fixed** `e73b701` (scoped to the Approvals tab panel). The note that the spec calls `rowFor` directly is **dismissed**: `rowFor` is a public page-object method, so the spec still goes through the page object |
 | F10 | nit | Stryker `break: 0` can never fail | **Fixed** `e73b701`: `break: 60`. The surviving mutants are explained above |
 
-## AI interaction log
+## AI interaction log (traceability)
 
-- `ai-logs/ai-interactions.jsonl` and `ai-logs/AI_INTERACTIONS.md`: written live by the hooks. They start from the moment the hooks were installed, early in commit 1.
-- `ai-logs/AI_TRANSCRIPT.md`: the **complete** session (user prompts, agent responses, every tool call, all three sub-agents), exported by `tools/export_ai_transcript.py` with the same columns. Model reasoning and secrets are excluded.
+Start with **`ai-logs/AI_LOG.md`**. It is generated automatically and gives one record per work phase (P01–P11) and per sub-agent run. Each record covers the nine required points:
+
+1. tool & model
+2. agent type & execution mode
+3. prompts
+4. skills & sub-agents
+5. tools/MCP
+6. actions & outputs
+7. human intervention
+8. evidence: timestamps, commits, test results
+9. outcome
+
+`ai-logs/README.md` maps each point to its JSON field.
+
+| File | What it is |
+| --- | --- |
+| `ai-logs/ai-log.jsonl` | Structured records (session + phases + sub-agents). `tools/build_ai_log.py` builds them from the Claude Code transcripts and git, and the Stop hook re-runs it after every turn |
+| `ai-logs/AI_LOG.md` | Readable summary of the same records |
+| `ai-logs/ai-interactions.jsonl` / `AI_INTERACTIONS.md` | Live per-event log written by the hooks: every prompt and tool call, with model, agent, permission mode, skill, MCP server, files and outcome |
+| `ai-logs/AI_TRANSCRIPT.md` | Every prompt, response and tool call, including the steps before the hooks were installed |
+| `ai-logs/phases.json` | The only hand-curated input: goal, human intervention (`by: user` vs `by: orchestrator`), validation, outcome and rework per phase |
+
+**What is automatic and what is curated:** everything except `phases.json` is derived automatically. Outcome counts across the 11 phases:
+
+- 7 successful
+- 3 rework: a commit-hook crash, a `git checkout` that wiped work, and a slow race test
+- 1 partial: the logs were back-filled, and the video is pending
+
+The participant's own sign-off (`human_review`) is deliberately left **pending** until they have reviewed the PR.
 
 ## Decisions and deviations (worth knowing)
 

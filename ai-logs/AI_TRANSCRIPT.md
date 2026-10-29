@@ -4,7 +4,7 @@ Full record of the AI interactions for this assignment, exported from the Claude
 transcript by `tools/export_ai_transcript.py`. Same columns as the live hook log in `AI_INTERACTIONS.md`.
 Model reasoning, harness reminders and secrets are excluded; long entries are truncated.
 
-Entries: 185 from 4 transcripts (main agent + 3 sub-agents).
+Entries: 216 from 4 transcripts (main agent + 3 sub-agents).
 
 | Time (UTC) | Agent | Event | Tool | Summary |
 | --- | --- | --- | --- | --- |
@@ -193,3 +193,34 @@ Entries: 185 from 4 transcripts (main agent + 3 sub-agents).
 | 2026-10-26 18:31:56 | main | tool call | Bash | description=Track deferred findings in tasks.md |
 | 2026-10-26 18:32:04 | main | response |  | Now the PR description (with every finding and its verdict), the final log export, and the last commit and push: |
 | 2026-10-26 18:32:13 | main | tool call | Bash | description=Build PR body and export AI transcript |
+| 2026-10-26 18:32:31 | main | tool call | Bash | description=Commit write-up, push, update PR description |
+| 2026-10-26 18:32:53 | main | response |  | Pushed, and the PR description is updated. A quick look at CI on the PR: |
+| 2026-10-26 18:32:54 | main | tool call | Bash | description=Check PR CI status |
+| 2026-10-26 18:33:07 | main | response |  | CI is running. I'll watch it in the background. |
+| 2026-10-26 18:33:08 | main | tool call | Bash | description=Wait for PR CI checks to finish |
+| 2026-10-26 18:33:11 | main | response |  | I'll report once CI finishes. |
+| 2026-10-26 18:49:30 | user | prompt |  | <task-notification> <task-id>b49q9lr4e</task-id> <tool-use-id>toolu_01Q8cVRbPwtZuiPkeSGgsw7C</tool-use-id> <output-file>/private/tmp/claude-501/-Users-apple-Desktop-AI-in-SLDC/31f7cd3b-70d6-4139-9993-12ea8a05d7e8/tasks/b49q9lr4e.output</output-file> <status>completed</status> <summary>Background command "Wait for PR CI checks to finish" completed (exit code 0)</summary> </task-notification> |
+| 2026-10-26 18:49:35 | main | tool call | Bash | description=Read CI results |
+| 2026-10-26 18:49:51 | main | response |  | Everything except the video is done. The PR is open with 9 commits, and both CI jobs pass on GitHub: unit tests and the Playwright e2e. **PR:** https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1 \| Hand-in item \| Where \| \| --- \| --- \| \| 1. PR with ≥3 standalone commits \| 9 commits. Step 1 (single-approver limits) and step 2 (two-approver rule) are separate commits, each with tests \| \| 2. Updated AGENTS.md \| Approval rule table, layering, test/e2e/mutation commands, testing and review e… |
+| 2026-10-29 10:03:31 | user | prompt |  | ## Context Usage **Model:** claude-opus-5-5 **Tokens:** 188.3k / 1m (19%) ### Estimated usage by category \| Category \| Tokens \| Percentage \| \|----------\|--------\|------------\| \| System prompt \| 2.6k \| 0.3% \| \| System tools \| 15.3k \| 1.5% \| \| MCP server instructions \| 1.7k \| 0.2% \| \| MCP tools (deferred) \| 129.7k \| 13.0% \| \| System tools (deferred) \| 23.4k \| 2.3% \| \| Custom agents \| 297 \| 0.0% \| \| Skills \| 7.4k \| 0.7% \| \| Messages \| 161k \| 16.1% \| \| Free space \| 778.7k \| 77.9% \| \| Autocompact bu… |
+| 2026-10-29 10:06:59 | user | prompt |  | please make sure below all are met [pasted assignment brief] |
+| 2026-10-29 10:07:30 | main | response |  | I'll first check what the session transcript records (model, version, permission mode, tool results). Then I'll upgrade the logging so all 9 points are covered, auto-generated wherever possible. |
+| 2026-10-29 10:07:34 | main | tool call | Bash | description=Inspect transcript metadata fields |
+| 2026-10-29 10:07:42 | main | tool call | Bash | description=List main-session tool calls with times |
+| 2026-10-29 10:08:36 | main | tool call | Write | file_path=/Users/apple/Desktop/AI in SLDC/.claude/hooks/log_interaction.py |
+| 2026-10-29 10:08:43 | main | response |  | Migrating the existing log rows to the new schema. Model, version and permission mode are taken from the transcript, not assumed: |
+| 2026-10-29 10:08:48 | main | tool call | Bash | description=Migrate old hook rows to new schema |
+| 2026-10-29 10:09:25 | main | tool call | Write | file_path=/Users/apple/Desktop/AI in SLDC/ai-logs/phases.json |
+| 2026-10-29 10:09:49 | main | response |  | Now the generator. It builds one record per phase and per sub-agent run, with the 9 required sections as explicit keys, derived from the transcript and git: |
+| 2026-10-29 10:10:58 | main | tool call | Write | file_path=/Users/apple/Desktop/AI in SLDC/tools/build_ai_log.py |
+| 2026-10-29 10:11:04 | main | tool call | Bash | description=Generate the traceability log and sanity-check it |
+| 2026-10-29 10:11:21 | main | tool call | Bash | description=Fix model filter, prompt placement, subagent files |
+| 2026-10-29 10:11:34 | main | tool call | Bash | description=Inspect prompt flags and implementer tools |
+| 2026-10-29 10:11:56 | main | tool call | Bash | description=Classify prompts by origin; attribute subagent files |
+| 2026-10-29 10:12:02 | main | response |  | Classification is now correct: three real human prompts plus the two "continue"s, and the sub-agent reports are kept separately. Checking the readable output and scanning for leaks: |
+| 2026-10-29 10:12:04 | main | tool call | Bash | description=Review AI_LOG.md rendering and scan for leaks |
+| 2026-10-29 10:12:24 | main | tool call | Bash | description=Fix branch name and phase time windows |
+| 2026-10-29 10:12:51 | main | tool call | Bash | description=Auto-regenerate log on Stop; add log README; test hook |
+| 2026-10-29 10:12:59 | main | response |  | The Stop hook regenerated `AI_LOG.md` (timestamp updated), and I removed the test row afterwards. Now updating the AI-log section of ASSIGNMENT.md: |
+| 2026-10-29 10:13:00 | main | tool call | Bash | description=Find AI log section in ASSIGNMENT.md |
+| 2026-10-29 10:13:12 | main | tool call | Bash | description=Update ASSIGNMENT.md AI log section |
