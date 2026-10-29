@@ -169,9 +169,9 @@ Start with **`ai-logs/AI_LOG.md`**. It is generated automatically and gives one 
 
 - 7 successful
 - 3 rework: a commit-hook crash, a `git checkout` that wiped work, and a slow race test
-- 1 partial: the logs were back-filled, and the video is pending
+- 1 partial: the logs were back-filled, and the demo video link is still to be added
 
-The participant's own sign-off (`human_review`) is deliberately left **pending** until they have reviewed the PR.
+**Participant sign-off (`human_review`): approved** by Vishal palla on 2026-10-29, after reviewing PR #1, the code, the tests, this write-up and the AI logs.
 
 ## Decisions and deviations (worth knowing)
 

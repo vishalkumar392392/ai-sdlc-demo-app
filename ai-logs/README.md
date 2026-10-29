@@ -9,7 +9,7 @@ All logs are produced automatically from Claude Code itself. The only hand-writt
 | `ai-log.jsonl` | `tools/build_ai_log.py` (run by the Stop hook, or by hand) | after every turn | one record per work phase and per sub-agent run, plus one session record |
 | `AI_LOG.md` | same script | after every turn | **readable summary; start here** |
 | `AI_TRANSCRIPT.md` | `tools/export_ai_transcript.py` | on demand | every prompt, response and tool call, including steps before the hooks existed |
-| `phases.json` | hand-curated | when a phase ends | goal, human intervention, validation, outcome, rework, and the pending human-review sign-off |
+| `phases.json` | hand-curated | when a phase ends | goal, human intervention, validation, outcome, rework, and the participant's human-review sign-off |
 
 Secrets, tokens and email addresses are redacted, and model reasoning is never logged.
 
@@ -31,7 +31,7 @@ Secrets, tokens and email addresses are redacted, and model reasoning is never l
 
 - **`by: user`** is the human participant: the prompts they typed and the decisions they made.
 - **`by: orchestrator`** is the main Claude Code agent checking its own output or a sub-agent's. Examples are diff reviews, break-it experiments and re-running tests.
-- **`human_review`** in `phases.json` is the participant's own sign-off. It stays **pending** until they have reviewed the PR. It is not filled in on their behalf.
+- **`human_review`** in `phases.json` is the participant's own sign-off (status, reviewer, date). It was approved by the participant after they reviewed the PR, not filled in by the agent on its own.
 
 ## Regenerate
 
