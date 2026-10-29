@@ -268,4 +268,12 @@ Machine-readable source: `ai-interactions.jsonl`. Phase-level summary: `AI_LOG.m
 | 2026-10-29T10:12:24+00:00 | PreToolUse | main | claude-opus-5-5 | auto | Bash |  |  | description=Fix branch name and phase time windows |
 | 2026-10-29T10:12:27+00:00 | PostToolUse | main | claude-opus-5-5 | auto | Bash |  | ok | description=Fix branch name and phase time windows |
 | 2026-10-29T10:12:51+00:00 | PreToolUse | main | claude-opus-5-5 | auto | Bash |  |  | description=Auto-regenerate log on Stop; add log README; test hook |
-| 2026-10-29T10:12:54+00:00 | Stop | main | claude-opus-5-5 |  |  |  | completed | Stop (turn finished) |
+| 2026-10-29T10:12:54+00:00 | PostToolUse | main | claude-opus-5-5 | auto | Bash |  | ok | description=Auto-regenerate log on Stop; add log README; test hook |
+| 2026-10-29T10:13:00+00:00 | PreToolUse | main | claude-opus-5-5 | auto | Bash |  |  | description=Find AI log section in ASSIGNMENT.md |
+| 2026-10-29T10:13:02+00:00 | PostToolUse | main | claude-opus-5-5 | auto | Bash |  | ok | description=Find AI log section in ASSIGNMENT.md |
+| 2026-10-29T10:13:12+00:00 | PreToolUse | main | claude-opus-5-5 | auto | Bash |  |  | description=Update ASSIGNMENT.md AI log section |
+| 2026-10-29T10:13:14+00:00 | PostToolUse | main | claude-opus-5-5 | auto | Bash |  | ok | description=Update ASSIGNMENT.md AI log section |
+| 2026-10-29T10:13:25+00:00 | PreToolUse | main | claude-opus-5-5 | auto | Bash |  |  | description=Regenerate logs, verify, commit and push |
+| 2026-10-29T10:13:39+00:00 | PostToolUse | main | claude-opus-5-5 | auto | Bash |  | ok | description=Regenerate logs, verify, commit and push |
+| 2026-10-29T10:13:53+00:00 | Stop | main | claude-opus-5-5 | auto |  |  | completed | The logs now cover all 9 points the course team listed. Most of it is generated automatically from the Claude Code session records and git, and it's committed and pushed to the PR as `38ab162`. **Where each point lives.** Start with `ai-logs/AI_LOG.md`, the readable summary. The same data is in `ai-logs/ai-log.jsonl`: one record per work phase (P01–P11) and one per sub-agent run. Every record has… |
+| 2026-10-29T10:16:57+00:00 | SubagentStop | subagent | claude-opus-5-5 | auto |  |  | completed | Your AI-in-SDLC assignment is done, PR #1 is pushed, and the logs now cover all nine points the course team asked for. Next, review the PR, mark your sign-off in ai-logs/phases.json, then refresh the logs and add your video link. |
