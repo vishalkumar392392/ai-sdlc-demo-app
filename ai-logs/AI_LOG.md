@@ -8,10 +8,10 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 | Field | Value |
 | --- | --- |
-| AI tool | Claude Code (Anthropic) CLI agent 2.1.292 (cli) |
+| AI tool | Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308 (cli) |
 | Model | claude-opus-5-5 |
 | Main agent | built-in: Claude Code main agent; mode: Agent (autonomous tool use; plan mode not used); permission mode: auto |
-| Session | `31f7cd3b-70d6-4139-9993-12ea8a05d7e8`, 2026-10-26T17:51:05Z → 2026-10-29T10:38:45Z |
+| Session | `31f7cd3b-70d6-4139-9993-12ea8a05d7e8`, 2026-10-26T17:51:05Z → 2026-10-30T18:18:42Z |
 | Branch / PR | feature/approval-limits-by-role / https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1 |
 | Skills configured | approval-rules, mutation-testing, openspec-apply-change, openspec-archive-change, openspec-explore, openspec-propose, openspec-sync-specs, openspec-update-change, pr-review, step-commit, test-review |
 | Custom agents | code-reviewer, e2e-tester, implementer, spec-writer, test-reviewer |
@@ -33,14 +33,14 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 | P08 | phase | Pull request and agent code review | 10-26T18:23 → 18:23 | main (orchestrator) | – | successful |
 | P09 | phase | Judging review findings and fixing them | 10-26T18:25 → 18:30 | main (orchestrator) | 591596b, e73b701 | rework |
 | P10 | phase | Write-up, AI logs, CI | 10-26T18:23 → 18:49 | main (orchestrator) | 73344d0 | partial |
-| P11 | phase | Traceability log upgrade (log requirements from the course team) | 10-29T10:06 → 10:38 | main (orchestrator) | 38ab162, 604191a, 2e12706, dfd7655 | successful |
+| P11 | phase | Traceability log upgrade (log requirements from the course team) | 10-29T10:06 → 18:18 | main (orchestrator) | 38ab162, 604191a, 2e12706, dfd7655, 6b9d267, 79ed43f | successful |
 | SA-a13cea8b | subagent | Write OpenSpec spec | 10-26T17:57 → 18:00 | Write OpenSpec spec | – | successful |
 | SA-a7a14700 | subagent | Review PR diff | 10-26T18:23 → 18:25 | Review PR diff | – | successful |
 | SA-a85f3771 | subagent | Implement two-approver rule | 10-26T18:16 → 18:21 | Implement two-approver rule | – | successful |
 
 ## P01: Discovery and toolchain setup
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -95,7 +95,7 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 ## P02: Context engineering: AGENTS.md, skills, sub-agent definitions, hooks
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -147,7 +147,7 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 ## P03: Specification with OpenSpec
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -195,7 +195,7 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 ## P04: Step 1: single-approver limits (Manager 50,000 / Director 500,000)
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -257,7 +257,7 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 ## P05: Step 2: two distinct approvers above 500,000
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -306,7 +306,7 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 ## P06: Playwright end-to-end test: refused over-limit approval
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -357,7 +357,7 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 ## P07: Mutation testing and killing surviving mutants
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -407,7 +407,7 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 ## P08: Pull request and agent code review
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -453,7 +453,7 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 ## P09: Judging review findings and fixing them
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -517,7 +517,7 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 
 ## P10: Write-up, AI logs, CI
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -571,11 +571,11 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 - 2026-10-26T18:49:35Z Read CI results: build-and-test pass; e2e pass
 - tool errors: none
 
-**9. Outcome:** partial: Logging hooks were only installed during P02, so the earlier steps were back-filled from the session transcript (tools/export_ai_transcript.py). Demo video link still pending (participant).
+**9. Outcome:** partial: Logging hooks were only installed during P02, so the earlier steps were back-filled from the session transcript (tools/export_ai_transcript.py).
 
 ## P11: Traceability log upgrade (log requirements from the course team)
 
-**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, model claude-opus-5-5
+**1. AI tool & model:** Claude Code (Anthropic) CLI agent 2.1.292, 2.1.308, model claude-opus-5-5
 
 **2. Agent:** main (orchestrator) (built-in: Claude Code main agent); execution mode: Agent (autonomous tool use; plan mode not used); permission mode: auto
 
@@ -585,22 +585,36 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 - “stage and commit”
 - “push it”
 - “i have still some changes, stage, commit and push”
+- “ok now tell me what is required in the video?”
+- “write a script for me to read during the video”
+- “save the script as a file”
+- “give me all commands to start the app, test the app, see if app is already runing”
+- “and not able to run the tests [Image #4]...”
+- “give me exact commands i need to run in the video”
+- “[pasted text: apple@APPLEs-MacBook-Air AI in SLDC % dotnet test backend/InvoiceApp.slncd backend/tests/InvoiceApp.Tests dotnet stryker MSBUILD : error MSB1008: Only one proje…] ,”
+- “[pasted text: apple@APPLEs-MacBook-Air AI in SLDC % cd backend/tests/InvoiceApp.Tests apple@APPLEs-MacBook-Air InvoiceApp.Tests % dotnet stryker _____ _ _ _ _ ______ _______ …]”
+- “if in the video script, the commands are not present please add them in the video-script.md”
+- “i forgot the password”
+- “GIVE ME EXACT GIT BAD COMMAND”
+- “[pasted text: apple@APPLEs-MacBook-Air AI in SLDC % echo '{"tool_input":{"command":"git commit -m \"fixed stuff\""}}' | python3 .claude/hooks/validate_commit.py; echo "exit=$…] , this command just waiting”
+- “what are assignment deliverables they asked??”
+- “https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_link, this is the video link, fix the stryker and commit, push”
 - sub-agent reports received: none
-- agent responses: 15
+- agent responses: 39
 
 **4. Skills, instructions & sub-agents:**
 - skills invoked (Skill tool): none
-- instruction / spec files used by tool calls: .claude/agents/code-reviewer.md, .claude/agents/implementer.md, .claude/agents/spec-writer.md, AGENTS.md
+- instruction / spec files used by tool calls: .claude/agents/code-reviewer.md, .claude/agents/implementer.md, .claude/agents/spec-writer.md, .claude/skills/approval-rules/SKILL.md, .claude/skills/mutation-testing/SKILL.md, AGENTS.md
 - sub-agents spawned: none
 
 **5. Tools & integrations:**
-- agent tools: AskUserQuestion×1, Bash×22, Write×3
+- agent tools: AskUserQuestion×1, Bash×31, Read×1, Write×5
 - MCP servers used: none
-- external CLIs: Playwright test runner, git, python3 (scripts)
+- external CLIs: dotnet test (xUnit), dotnet-stryker (mutation testing), Playwright test runner, git, python3 (scripts)
 
 **6. AI actions & outputs:**
 - goal: Make the logs cover tool/model, agent type and mode, prompts, skills, MCP, actions, human intervention, evidence and outcome, generated automatically.
-<details><summary>actions (26)</summary>
+<details><summary>actions (38)</summary>
 
 - 2026-10-29T10:07:34Z Bash: Inspect transcript metadata fields
 - 2026-10-29T10:07:42Z Bash: List main-session tool calls with times
@@ -628,30 +642,49 @@ Only goal, human intervention, validation and outcome come from the hand-curated
 - 2026-10-29T10:38:08Z Bash: Push branch to GitHub
 - 2026-10-29T10:38:40Z Bash: Show uncommitted changes
 - 2026-10-29T10:38:45Z Bash: Refresh logs, commit and push
+- 2026-10-29T10:46:43Z Write: ~/Desktop/video-script.md
+- 2026-10-29T10:55:23Z Bash: Add .NET to PATH in ~/.zshrc and verify
+- 2026-10-29T11:11:59Z Bash: Reproduce Stryker crash in a TTY and verify fix
+- 2026-10-29T11:13:39Z Bash: Compare old and new Stryker configs in sized TTY
+- 2026-10-29T11:15:21Z Bash: Update skill and commit Stryker fix
+- 2026-10-29T11:16:12Z Read: ~/Desktop/video-script.md
+- 2026-10-29T11:16:56Z Write: ~/Desktop/video-script.md
+- 2026-10-29T11:17:02Z Bash: Verify the newly added video commands
+- 2026-10-30T18:16:59Z Bash: Check video link and git state
+- 2026-10-30T18:18:23Z Bash: Find all video mentions
+- 2026-10-30T18:18:32Z Bash: Add video link, update notes, rebuild logs
+- 2026-10-30T18:18:42Z Bash: Fix wording, commit and push everything
 
 </details>
 
-- files affected: `.claude/hooks/log_interaction.py`, `ASSIGNMENT.md`, `ai-logs/AI_INTERACTIONS.md`, `ai-logs/AI_LOG.md`, `ai-logs/AI_TRANSCRIPT.md`, `ai-logs/README.md`, `ai-logs/ai-interactions.jsonl`, `ai-logs/ai-log.jsonl`, `ai-logs/phases.json`, `tools/build_ai_log.py`
+- files affected: `.claude/hooks/log_interaction.py`, `.claude/skills/mutation-testing/SKILL.md`, `ASSIGNMENT.md`, `ai-logs/AI_INTERACTIONS.md`, `ai-logs/AI_LOG.md`, `ai-logs/AI_TRANSCRIPT.md`, `ai-logs/README.md`, `ai-logs/ai-interactions.jsonl`, `ai-logs/ai-log.jsonl`, `ai-logs/phases.json`, `backend/tests/InvoiceApp.Tests/stryker-config.json`, `tools/build_ai_log.py`, `~/Desktop/video-script.md`
 - tests created/changed: none
 
 **7. Human intervention & validation:**
 - [user] Supplied the nine logging requirements and asked for all of them to be met.
 - [user] Reviewed PR #1 and the AI logs, pushed the refreshed logs (commit 604191a) and approved the work (2026-10-29).
+- [user] Recorded the demo video and linked it in ASSIGNMENT.md: https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_link
 - validated: ai-log.jsonl regenerated; every record has all nine sections
 - validated: Secret/email scan on ai-logs: 0 matches
 - validated: Participant review: approved by Vishal palla on 2026-10-29
 
 **8. Execution evidence:**
-- time: 2026-10-29T10:06:59Z → 2026-10-29T10:38:45Z
+- time: 2026-10-29T10:06:59Z → 2026-10-30T18:18:42Z
 - commit `38ab162` 2026-10-29T10:13:35Z: docs(ai-logs): structured traceability log covering all nine log points
 - commit `604191a` 2026-10-29T10:19:02Z: Refactor code structure for improved readability and maintainability
 - commit `2e12706` 2026-10-29T10:35:00Z: docs(ai-logs): record participant review approval
 - commit `dfd7655` 2026-10-29T10:37:54Z: docs(ai-logs): refresh generated AI logs
+- commit `6b9d267` 2026-10-29T10:38:56Z: docs(ai-logs): refresh generated AI logs
+- commit `79ed43f` 2026-10-29T11:15:23Z: fix(mutation): stop Stryker crashing when the repo path has a space
 - 2026-10-29T10:07:34Z Inspect transcript metadata fields: https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1
 - 2026-10-29T10:07:42Z List main-session tool calls with times: Experiment B: exclusive limit must fail tests
 - 2026-10-29T10:12:04Z Review AI_LOG.md rendering and scan for leaks: https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1; Experiment A (mutate before check): 2 tests red; Experiment B (exclusive limit): 4 tests red; Experiment B first ran against a broken build (wiped file) and produced no result; re-run after restoring.
 - 2026-10-29T10:12:24Z Fix branch name and phase time windows: https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1
-- tool errors: none
+- 2026-10-29T11:13:39Z Compare old and new Stryker configs in sized TTY: final mutation score is 71.05 %
+- 2026-10-29T11:16:12Z ~/Desktop/video-script.md: final mutation score is 71.05 %; https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1; {"error":"Manager approval limit is 50,000.00; invoice INV-1006 is 72,500.00 and 179 needs a Director."} [403]
+- 2026-10-29T11:17:02Z Verify the newly added video commands: Passed! - Failed: 0, Passed: 2, Skipped: 0, Total: 2; final mutation score is 30.77%; Commit message rejected by validate_commit hook
+- 2026-10-30T18:16:59Z Check video link and git state: https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1
+- tool error: 2026-10-29T10:55:23Z Bash: Add .NET to PATH in ~/.zshrc and verify
 
 **9. Outcome:** successful
 

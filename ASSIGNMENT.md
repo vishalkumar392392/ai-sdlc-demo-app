@@ -1,6 +1,6 @@
 # AI in SDLC Assignment: Approval limits by role
 
-**Demo video:** _TODO: add link_ (8–10 min, MP4)
+**Demo video:** [https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_link](https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_link) (8–10 min, MP4)
 **Pull request:** https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1
 **Branch:** `feature/approval-limits-by-role`
 
@@ -169,7 +169,7 @@ Start with **`ai-logs/AI_LOG.md`**. It is generated automatically and gives one 
 
 - 7 successful
 - 3 rework: a commit-hook crash, a `git checkout` that wiped work, and a slow race test
-- 1 partial: the logs were back-filled, and the demo video link is still to be added
+- 1 partial: the logs before the hooks existed were back-filled from the session transcript
 
 **Participant sign-off (`human_review`): approved** by Vishal palla on 2026-10-29, after reviewing PR #1, the code, the tests, this write-up and the AI logs.
 

@@ -223,7 +223,7 @@
         "grep for emails/tokens in ai-logs: 0 matches"
       ],
       "outcome": "partial",
-      "rework": "Logging hooks were only installed during P02, so the earlier steps were back-filled from the session transcript (tools/export_ai_transcript.py). Demo video link still pending (participant)."
+      "rework": "Logging hooks were only installed during P02, so the earlier steps were back-filled from the session transcript (tools/export_ai_transcript.py)."
     },
     {
       "id": "P11",
@@ -240,6 +240,10 @@
         {
           "by": "user",
           "what": "Reviewed PR #1 and the AI logs, pushed the refreshed logs (commit 604191a) and approved the work (2026-10-29)."
+        },
+        {
+          "by": "user",
+          "what": "Recorded the demo video and linked it in ASSIGNMENT.md: https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_link"
         }
       ],
       "validation": [
