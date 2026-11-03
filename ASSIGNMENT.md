@@ -1,6 +1,7 @@
 # AI in SDLC Assignment: Approval limits by role
 
-**Demo video:** [https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_link](https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_link) (8–10 min, MP4)
+**Demo video (OneDrive):** [https://nagarro-my.sharepoint.com/:u:/r/personal/vishal_palla_nagarro_com/Documents/Vishal-Palla-3211830-ai-sldc.zip?d=w12b10c1103934258ae140309968765bb&csf=1&web=1&e=5t0VFJ](https://nagarro-my.sharepoint.com/:u:/r/personal/vishal_palla_nagarro_com/Documents/Vishal-Palla-3211830-ai-sldc.zip?d=w12b10c1103934258ae140309968765bb&csf=1&web=1&e=5t0VFJ)
+**Demo video (Google Drive):** [https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_link](https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_link) (8–10 min, MP4)
 **Pull request:** https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1
 **Branch:** `feature/approval-limits-by-role`
 

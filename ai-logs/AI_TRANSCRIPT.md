@@ -4,7 +4,7 @@ Full record of the AI interactions for this assignment, exported from the Claude
 transcript by `tools/export_ai_transcript.py`. Same columns as the live hook log in `AI_INTERACTIONS.md`.
 Model reasoning, harness reminders and secrets are excluded; long entries are truncated.
 
-Entries: 295 from 4 transcripts (main agent + 3 sub-agents).
+Entries: 306 from 4 transcripts (main agent + 3 sub-agents).
 
 | Time (UTC) | Agent | Event | Tool | Summary |
 | --- | --- | --- | --- | --- |
@@ -303,3 +303,14 @@ Entries: 295 from 4 transcripts (main agent + 3 sub-agents).
 | 2026-10-30 18:18:23 | main | response |  | The Stryker fix is already committed (`79ed43f`) and just needs pushing. I'll add the video link, update the "video still pending" notes, refresh the logs, then commit and push everything. |
 | 2026-10-30 18:18:23 | main | tool call | Bash | description=Find all video mentions |
 | 2026-10-30 18:18:32 | main | tool call | Bash | description=Add video link, update notes, rebuild logs |
+| 2026-10-30 18:18:38 | main | response |  | Correcting one thing before committing: I described what the video shows, but I haven't seen it. I'll make the log say only that you recorded and linked it. |
+| 2026-10-30 18:18:42 | main | tool call | Bash | description=Fix wording, commit and push everything |
+| 2026-10-30 18:18:57 | main | response |  | I added your video link, and both commits are now pushed. Your branch matches GitHub. - **`79ed43f` (Stryker fix):** it was already committed, so this just pushed it. Stryker no longer crashes on the space in "AI in SLDC" and prints the score table at the end. - **`fc1b580` (video link):** - `ASSIGNMENT.md` now links your Google Drive video. - I removed the notes that said the video was still pending. - The AI log records that you recorded and linked the video. All 10 deliverables are now in PR… |
+| 2026-10-30 18:20:20 | user | prompt |  | should i share the video link or the PR link |
+| 2026-10-30 18:20:23 | main | response |  | Share the **PR link**. Everything is reachable from it, including the video: https://github.com/vishalkumar392392/ai-sdlc-demo-app/pull/1 - The PR shows the commits, code, tests, spec, review verdicts and mutation scores. - `ASSIGNMENT.md` in the PR holds the write-up and links the video. If the submission form has separate fields, use the PR link for the repository/PR field and the video link for the video field: https://drive.google.com/file/d/1YPRypx0wyoz1K3s0EUF9J_OhIk45lzsa/view?usp=share_… |
+| 2026-11-03 05:20:41 | user | prompt |  | ## Context Usage **Model:** claude-opus-5-5 **Tokens:** 389.7k / 1m (39%) ### Estimated usage by category \| Category \| Tokens \| Percentage \| \|----------\|--------\|------------\| \| System prompt \| 2.6k \| 0.3% \| \| System tools \| 15.1k \| 1.5% \| \| MCP server instructions \| 1.7k \| 0.2% \| \| MCP tools (deferred) \| 136.9k \| 13.7% \| \| System tools (deferred) \| 23.5k \| 2.4% \| \| Custom agents \| 297 \| 0.0% \| \| Memory files \| 2.3k \| 0.2% \| \| Skills \| 7.6k \| 0.8% \| \| Messages \| 360k \| 36.0% \| \| Free space \| 57… |
+| 2026-11-03 05:21:54 | user | prompt |  | they asked us to add the onedrive url link, but we added google drive link, please dont remove the existing link, on top of the existing drive link add the onedrive link https://nagarro-my.sharepoint.com/:u:/r/personal/vishal_palla_nagarro_com/Documents/Vishal-Palla-3211830-ai-sldc.zip?d=w12b10c1103934258ae140309968765bb&csf=1&web=1&e=5t0VFJ |
+| 2026-11-03 05:22:00 | main | response |  | I'll add the OneDrive link above the existing Google Drive link in `ASSIGNMENT.md`, keeping the Google Drive link in place: |
+| 2026-11-03 05:22:03 | main | tool call | Bash | description=Add OneDrive link above Google Drive link |
+| 2026-11-03 05:22:05 | main | response |  | Both links are in place. Committing, with the log files refreshed in the same commit: |
+| 2026-11-03 05:22:08 | main | tool call | Bash | description=Commit OneDrive link and refreshed logs |
