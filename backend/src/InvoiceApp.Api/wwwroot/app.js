@@ -69,23 +69,35 @@
       const reject = el('button', { type: 'button', class: 'danger', 'aria-label': `Reject invoice ${invoice.id}` }, 'Reject');
       const reason = el('input', { id: reasonId, 'aria-label': `Rejection reason for ${invoice.id}`, placeholder: 'Reason (required to reject)' });
 
-      approve.addEventListener('click', () => decide(`/approvals/${invoice.id}/approve`, {}));
-      reject.addEventListener('click', () => decide(`/approvals/${invoice.id}/reject`, { reason: reason.value }));
+      approve.addEventListener('click', () => decide(`/approvals/${invoice.id}/approve`, {}, [approve, reject]));
+      reject.addEventListener('click', () => decide(`/approvals/${invoice.id}/reject`, { reason: reason.value }, [approve, reject]));
+
+      // Only invoices that need two approvals can be pending with one recorded; the server owns that rule.
+      const progress = (invoice.approvals || []).length === 1
+        ? [' · ', el('span', { class: 'approval-progress' }, '1 of 2 approvals')]
+        : [];
 
       return el('li', {},
-        el('span', {}, `${invoice.id} · ${invoice.customerName} · ${money.format(invoice.amount)}`),
-        el('span', {}, approve),
+        el('span', {}, `${invoice.id} · ${invoice.customerName} · ${money.format(invoice.amount)}`, ...progress),
+        el('span', {}, ...(canApprove() ? [approve] : [])),
         el('div', { class: 'reject-row' }, reason, reject));
     }));
   }
 
-  async function decide(path, payload) {
+  // Only hides the button; the server enforces who may approve and how much.
+  function canApprove() { return ['Manager', 'Director'].includes(session.role); }
+
+  // Buttons stay disabled while the request is in flight so a double-click sends one decision.
+  async function decide(path, payload, buttons) {
     showError('decision-error', '');
+    buttons.forEach((button) => { button.disabled = true; });
     try {
       await api(path, { method: 'POST', body: JSON.stringify(payload) });
       await refresh();
     } catch (error) {
       showError('decision-error', error.message);
+    } finally {
+      buttons.forEach((button) => { button.disabled = false; });
     }
   }
 

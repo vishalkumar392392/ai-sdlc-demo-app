@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace InvoiceApp.Api.Auth;
 
-/// <summary>Allows the action only for the listed roles; everyone else gets 403.</summary>
+/// <summary>Allows the action only for the listed roles; everyone else gets 403 with the reason.</summary>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class RequireRoleAttribute : ActionFilterAttribute
 {
@@ -20,7 +20,11 @@ public class RequireRoleAttribute : ActionFilterAttribute
 
         if (session is null || !_roles.Contains(session.Role))
         {
-            context.Result = new StatusCodeResult(StatusCodes.Status403Forbidden);
+            var signedInAs = session is null ? "nobody" : session.Role;
+            context.Result = new ObjectResult(new { error = $"This action needs one of these roles: {string.Join(", ", _roles)}. You are signed in as {signedInAs}." })
+            {
+                StatusCode = StatusCodes.Status403Forbidden
+            };
         }
     }
 }

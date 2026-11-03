@@ -10,4 +10,7 @@ public class Invoice
     public string? DecidedBy { get; set; }
     public DateTime? DecidedAt { get; set; }
     public string? DecisionNote { get; set; }
+
+    /// <summary>Approvals given so far; invoices over 500,000 need two from distinct users.</summary>
+    public List<ApprovalRecord> Approvals { get; set; } = new();
 }
